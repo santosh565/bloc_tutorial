@@ -27,8 +27,6 @@ class MyHomePage extends StatelessWidget {
 
   final _bloc = CounterBloc();
 
-  
-
   @override
   Widget build(BuildContext context) {
     print("build called");
