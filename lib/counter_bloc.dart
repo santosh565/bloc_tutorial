@@ -11,8 +11,8 @@ class CounterBloc {
   Stream<CounterEvent> get _eventStream => _counterEventController.stream;
 
   StreamController<int> _counterStateController = StreamController<int>();
-  Sink<int> get _incounter => _counterStateController.sink;
-  Stream<int> get outputStream => _counterStateController.stream;
+  Sink<int> get _stateSink => _counterStateController.sink;
+  Stream<int> get stateStream => _counterStateController.stream;
 
   CounterBloc() {
     _eventStream.listen(_mapEventToState);
@@ -25,7 +25,7 @@ class CounterBloc {
     if (event is DecrementEvent) {
       _counter--;
     }
-    _incounter.add(_counter);
+    _stateSink.add(_counter);
   }
 
   void dispose() {

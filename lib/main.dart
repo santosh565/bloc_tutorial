@@ -42,7 +42,7 @@ class MyHomePage extends StatelessWidget {
               'You have pushed the button this many times:',
             ),
             StreamBuilder(
-                stream: _bloc.outputStream,
+                stream: _bloc.stateStream,
                 builder: (context, snapshot) {
                   return Text(
                     '$snapshot',
