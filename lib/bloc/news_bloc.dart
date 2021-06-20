@@ -14,7 +14,7 @@ class NewsBloc {
 
   StreamController<List<Article>?> _newsStateController =
       StreamController<List<Article>?>();
-  Sink<List<Article>?> get _newsStateSink => _newsStateController.sink;
+  StreamSink<List<Article>?> get _newsStateSink => _newsStateController.sink;
   Stream<List<Article>?> get newsStateStream => _newsStateController.stream;
 
   NewsBloc() {
@@ -24,7 +24,11 @@ class NewsBloc {
   _mapEventToState(NewsEvent event) async {
     if (event == NewsEvent.Fetch) {
       NewsApiResponse response = await APIManager().getNews();
-      _newsStateSink.add(response.articles);
+      if (response.articles != null) {
+        _newsStateSink.add(response.articles);
+      } else
+        _newsStateSink.addError("error");
+
       print(response.articles);
     }
   }
