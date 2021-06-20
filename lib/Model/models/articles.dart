@@ -1,6 +1,6 @@
 import 'source.dart';
 
-class Articles {
+class Article {
   Source? source;
   dynamic author;
   String? title;
@@ -10,7 +10,7 @@ class Articles {
   DateTime? publishedAt;
   String? content;
 
-  Articles({
+  Article({
     this.source,
     this.author,
     this.title,
@@ -23,10 +23,10 @@ class Articles {
 
   @override
   String toString() {
-    return 'Articles(title: $title, description: $description)';
+    return 'Article(title: $title, description: $description)';
   }
 
-  factory Articles.fromJson(Map<String, dynamic> json) => Articles(
+  factory Article.fromJson(Map<String, dynamic> json) => Article(
         source: json['source'] == null
             ? null
             : Source.fromJson(json['source'] as Map<String, dynamic>),

@@ -4,25 +4,25 @@ import 'package:bloc_tutorial/Model/models/news_api_response.dart';
 import 'package:bloc_tutorial/strings.dart';
 import 'package:http/http.dart' as http;
 
-// ignore: camel_case_types
-class API_Manager {
+class APIManager {
+
+  
+  late NewsApiResponse newsApiResponse;
   Future<NewsApiResponse> getNews() async {
-    var client = http.Client();
-    var newsModel;
+    http.Client _client = http.Client();
 
     try {
-      var response = await client.get(Uri.parse(Strings.news_url));
+      http.Response response = await _client.get(Uri.parse(Strings.news_url));
       if (response.statusCode == 200) {
-        var jsonString = response.body;
+        String jsonString = response.body;
         var jsonMap = json.decode(jsonString);
 
-        newsModel = NewsApiResponse.fromJson(jsonMap);
-        print(newsModel);
+        newsApiResponse = NewsApiResponse.fromJson(jsonMap);
       }
-    } catch (Exception) {
-      return newsModel;
+    } catch (e) {
+      print("e$e");
     }
 
-    return newsModel;
+    return newsApiResponse;
   }
 }

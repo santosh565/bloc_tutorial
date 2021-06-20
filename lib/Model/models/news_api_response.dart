@@ -3,9 +3,9 @@ import 'articles.dart';
 class NewsApiResponse {
   String? status;
   int? totalResults;
-  List<Articles>? articles;
+  List<Article>? articles;
 
-  NewsApiResponse({this.status, this.totalResults, this.articles});
+  NewsApiResponse({this.status, this.totalResults, this.articles });
 
   @override
   String toString() {
@@ -17,7 +17,7 @@ class NewsApiResponse {
         status: json['status'] as String?,
         totalResults: json['totalResults'] as int?,
         articles: (json['articles'] as List<dynamic>?)
-            ?.map((e) => Articles.fromJson(e as Map<String, dynamic>))
+            ?.map((e) => Article.fromJson(e as Map<String, dynamic>))
             .toList(),
       );
 

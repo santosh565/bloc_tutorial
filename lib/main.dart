@@ -1,7 +1,9 @@
-import 'package:bloc_tutorial/api_client.dart';
 import 'package:bloc_tutorial/counter_event.dart';
 import 'package:flutter/material.dart';
 
+import 'Model/models/articles.dart';
+import 'Model/models/source.dart';
+import 'bloc/news_bloc.dart';
 import 'counter_bloc.dart';
 
 void main() {
@@ -27,30 +29,51 @@ class MyHomePage extends StatelessWidget {
   final String title;
 
   final _bloc = CounterBloc();
+  final _newsBloc = NewsBloc();
 
   @override
   Widget build(BuildContext context) {
-    print("build called");
     return Scaffold(
       appBar: AppBar(
         title: Text(title),
       ),
       body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            Text(
-              'You have pushed the button this many times:',
-            ),
-            StreamBuilder(
-                stream: _bloc.stateStream,
-                builder: (context, snapshot) {
-                  return Text(
-                    '$snapshot',
-                    style: Theme.of(context).textTheme.headline4,
+        child: StreamBuilder(
+          stream: _newsBloc.newsStateStream,
+          builder: (context, AsyncSnapshot<List<Article>?> snapshot) {
+            if (snapshot.hasData) {
+              List<Article> articles = snapshot.data!;
+
+              return ListView.builder(
+                itemCount: articles.length,
+                shrinkWrap: true,
+                itemBuilder: (context, index) {
+                  Source source = articles[index].source!;
+                  return Card(
+                    child: ExpansionTile(
+                        title: Text(articles[index].title!),
+                        subtitle: Text(source.name!),
+                        children: [
+                          Text(articles[index].content!),
+                        ],
+                        leading: CircleAvatar(
+                            backgroundImage:
+                                NetworkImage(articles[index].urlToImage!))),
+
+                    // ListTile(
+                    //   subtitle: Text(articles[index].author),
+                    //   title: Text(articles[index].title!),
+                    //   leading: CircleAvatar(
+                    //     backgroundImage:
+                    //         NetworkImage(articles[index].urlToImage!),
+                    //   ),
+                    // ),
                   );
-                }),
-          ],
+                },
+              );
+            }
+            return CircularProgressIndicator();
+          },
         ),
       ),
       floatingActionButton: Row(
@@ -65,8 +88,8 @@ class MyHomePage extends StatelessWidget {
             width: 10,
           ),
           FloatingActionButton(
-            onPressed: () async {
-              API_Manager().getNews();
+            onPressed: () {
+              _newsBloc.newsEventSink.add(NewsEvent.Fetch);
             },
             tooltip: 'Decrement',
             child: Icon(Icons.remove),
