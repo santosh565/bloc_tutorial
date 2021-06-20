@@ -1,3 +1,4 @@
+import 'package:bloc_tutorial/api_client.dart';
 import 'package:bloc_tutorial/counter_event.dart';
 import 'package:flutter/material.dart';
 
@@ -64,7 +65,9 @@ class MyHomePage extends StatelessWidget {
             width: 10,
           ),
           FloatingActionButton(
-            onPressed: () => _bloc.eventSink.add(DecrementEvent()),
+            onPressed: () async {
+              API_Manager().getNews();
+            },
             tooltip: 'Decrement',
             child: Icon(Icons.remove),
           )

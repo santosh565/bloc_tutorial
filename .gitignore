@@ -8,6 +8,8 @@
 .buildlog/
 .history
 .svn/
+test.dart
+test.http
 
 # IntelliJ related
 *.iml
