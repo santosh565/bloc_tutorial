@@ -38,7 +38,7 @@ class MyHomePage extends StatelessWidget {
         title: Text(title),
       ),
       body: Center(
-        child: StreamBuilder(
+        child: StreamBuilder<List<Article>?>(
           stream: _newsBloc.newsStateStream,
           builder: (context, AsyncSnapshot<List<Article>?> snapshot) {
             if (snapshot.hasData) {

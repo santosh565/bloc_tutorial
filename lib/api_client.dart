@@ -5,12 +5,10 @@ import 'package:bloc_tutorial/strings.dart';
 import 'package:http/http.dart' as http;
 
 class APIManager {
+  http.Client _client = http.Client();
+  late final NewsApiResponse newsApiResponse;
 
-  
-  late NewsApiResponse newsApiResponse;
   Future<NewsApiResponse> getNews() async {
-    http.Client _client = http.Client();
-
     try {
       http.Response response = await _client.get(Uri.parse(Strings.news_url));
       if (response.statusCode == 200) {
