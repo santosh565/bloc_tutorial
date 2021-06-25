@@ -1,4 +1,4 @@
-import 'articles.dart';
+import 'article.dart';
 
 class NewsApiResponse {
   String? status;

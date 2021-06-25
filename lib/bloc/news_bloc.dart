@@ -1,8 +1,7 @@
 import 'dart:async';
 
-import 'package:bloc_tutorial/Model/models/articles.dart';
-import 'package:bloc_tutorial/Model/models/news_api_response.dart';
-import 'package:bloc_tutorial/api_client.dart';
+import 'package:bloc_tutorial/data/data_sources/news_remote_data_source.dart';
+import 'package:bloc_tutorial/data/models/article.dart';
 
 enum NewsEvent { Fetch, Update }
 
@@ -23,13 +22,9 @@ class NewsBloc {
 
   _mapEventToState(NewsEvent event) async {
     if (event == NewsEvent.Fetch) {
-      NewsApiResponse response = await APIManager().getNews();
-      if (response.articles != null) {
-        _newsStateSink.add(response.articles);
-      } else
-        _newsStateSink.addError("error");
-
-      print(response.articles);
+      List<Article>? articles =
+          await NewsRemoteDataSourceImpl().getEverything();
+      _newsStateSink.add(articles);
     }
   }
 
