@@ -23,7 +23,7 @@ class NewsBloc {
   _mapEventToState(NewsEvent event) async {
     if (event == NewsEvent.Fetch) {
       List<Article>? articles =
-          await NewsRemoteDataSourceImpl().getEverything();
+          await remoteDataSource.getEverything();
       _newsStateSink.add(articles);
     }
   }

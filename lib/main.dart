@@ -7,6 +7,7 @@ import 'bloc/news_bloc.dart';
 import 'counter_bloc.dart';
 
 void main() {
+ 
   runApp(MyApp());
 }
 
@@ -23,7 +24,7 @@ class MyApp extends StatelessWidget {
   }
 }
 
-class MyHomePage extends StatelessWidget {
+class MyHomePage extends StatelessWidget  {
   MyHomePage({Key? key, required this.title}) : super(key: key);
 
   final String title;
@@ -33,6 +34,7 @@ class MyHomePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    _newsBloc.newsEventSink.add(NewsEvent.Fetch);
     return Scaffold(
       appBar: AppBar(
         title: Text(title),

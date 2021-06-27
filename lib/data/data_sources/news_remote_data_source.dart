@@ -1,5 +1,3 @@
-import 'dart:io';
-
 import 'package:bloc_tutorial/data/core/api_client.dart';
 import 'package:bloc_tutorial/data/models/article.dart';
 import 'package:bloc_tutorial/data/models/news_api_response.dart';
@@ -23,8 +21,10 @@ class NewsRemoteDataSourceImpl extends NewsRemoteDataSource {
     try {
       Response response = await _apiClient.get(Strings.news_url);
       return NewsApiResponse.fromJson(response.data).articles;
-    } on SocketException catch (error, stacktrace) {
-      print("$error and $stacktrace");
+    } on Exception catch (e) {
+      print("Exception occured: $e");
     }
   }
 }
+
+final remoteDataSource = NewsRemoteDataSourceImpl();
