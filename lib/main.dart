@@ -2,12 +2,11 @@ import 'package:bloc_tutorial/counter_event.dart';
 import 'package:flutter/material.dart';
 
 import 'data/models/article.dart';
-import 'Model/models/source.dart';
+import 'data/models/source.dart';
 import 'bloc/news_bloc.dart';
 import 'counter_bloc.dart';
 
 void main() {
- 
   runApp(MyApp());
 }
 
@@ -24,7 +23,7 @@ class MyApp extends StatelessWidget {
   }
 }
 
-class MyHomePage extends StatelessWidget  {
+class MyHomePage extends StatelessWidget {
   MyHomePage({Key? key, required this.title}) : super(key: key);
 
   final String title;
@@ -51,12 +50,9 @@ class MyHomePage extends StatelessWidget  {
                 itemBuilder: (context, index) {
                   Source source = articles[index].source!;
                   return Card(
-                    child: ExpansionTile(
+                    child: ListTile(
                       title: Text(articles[index].title!),
                       subtitle: Text(source.name!),
-                      children: [
-                        Text(articles[index].content!),
-                      ],
                       leading: CircleAvatar(
                         backgroundImage:
                             NetworkImage(articles[index].urlToImage!),
