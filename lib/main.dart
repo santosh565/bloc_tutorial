@@ -1,10 +1,8 @@
-import 'package:bloc_tutorial/counter_event.dart';
 import 'package:flutter/material.dart';
 
 import 'data/models/article.dart';
 import 'data/models/source.dart';
 import 'bloc/news_bloc.dart';
-import 'counter_bloc.dart';
 
 void main() {
   runApp(MyApp());
@@ -28,7 +26,6 @@ class MyHomePage extends StatelessWidget {
 
   final String title;
 
-  final _bloc = CounterBloc();
   final _newsBloc = NewsBloc();
 
   @override
@@ -72,14 +69,6 @@ class MyHomePage extends StatelessWidget {
       floatingActionButton: Row(
         mainAxisAlignment: MainAxisAlignment.end,
         children: [
-          FloatingActionButton(
-            onPressed: () => _bloc.eventSink.add(IncrementEvent()),
-            tooltip: '',
-            child: Icon(Icons.add),
-          ),
-          SizedBox(
-            width: 10,
-          ),
           FloatingActionButton(
             onPressed: () {
               _newsBloc.newsEventSink.add(NewsEvent.Fetch);

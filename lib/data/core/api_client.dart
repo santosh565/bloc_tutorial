@@ -1,15 +1,15 @@
 import 'package:dio/dio.dart';
 
 
-final apiClient = ApiClient();
+final dioClient = DioClient();
 
 
-class ApiClient {
+class DioClient {
   late final Dio _dio;
 
   Dio get dio => _dio;
 
-  ApiClient() {
+  DioClient() {
     BaseOptions options =
         BaseOptions(receiveTimeout: 5000, connectTimeout: 3000);
     _dio = Dio(options);

@@ -10,16 +10,16 @@ abstract class NewsRemoteDataSource {
 }
 
 class NewsRemoteDataSourceImpl extends NewsRemoteDataSource {
-  late final Dio _apiClient;
+  late final Dio _dio;
 
   NewsRemoteDataSourceImpl() {
-    _apiClient = apiClient.dio;
+    _dio = dioClient.dio;
   }
 
   @override
   Future<List<Article>?> getEverything() async {
     try {
-      Response response = await _apiClient.get(Strings.news_url);
+      Response response = await _dio.get(Strings.news_url);
       return NewsApiResponse.fromJson(response.data).articles;
     } on Exception catch (e) {
       print("Exception occured: $e");
